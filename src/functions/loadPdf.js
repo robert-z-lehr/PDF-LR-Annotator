@@ -11,6 +11,7 @@ export async function loadPdf(file){
     state.renderToken+=1;
     const token=state.renderToken;
     const data=new Uint8Array(await file.arrayBuffer());
+    state.pdfBytes=data.slice();
     document.getElementById('status').textContent=`Loading ${file.name}…`;
     state.pdf=await pdfjsLib.getDocument({data}).promise;
     if(token!==state.renderToken)return;
