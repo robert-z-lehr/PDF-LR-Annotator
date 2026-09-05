@@ -12,5 +12,5 @@ export const state={
   navCurrentIdByCategory:new Map(),
   renderToken:0,
   clickStart:null,
-  openCommentId:null
+  openCommentIds:new Set()
 };
