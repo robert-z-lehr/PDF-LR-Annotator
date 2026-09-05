@@ -18,6 +18,7 @@ export async function loadPdf(file){
     state.scale=state.defaultScale;
     state.annotations=[];
     state.navCurrentIdByCategory.clear();
+    state.openCommentIds.clear();
     clearClickStart();
     rebuildCategoryIndex();
     await renderDocument(token);
