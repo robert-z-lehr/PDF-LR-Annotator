@@ -1,5 +1,6 @@
 export const state={
   pdf:null,
+  pdfBytes:null,
   fileName:null,
   defaultScale:1.35,
   scale:1.35,
