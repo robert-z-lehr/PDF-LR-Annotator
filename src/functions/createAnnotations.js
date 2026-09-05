@@ -7,7 +7,7 @@ import {toast} from './toast.js';
 export function createAnnotations(groups,text){
   const root=crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(16).slice(2)}`;
   groups.forEach((group,i)=>{
-    const annotation={id:`${root}-${i}`,page:group.page,category:state.selectedCategory,text,rects:group.rects,createdAt:new Date().toISOString()};
+    const annotation={id:`${root}-${i}`,page:group.page,category:state.selectedCategory,text,comment:'',rects:group.rects,createdAt:new Date().toISOString()};
     state.annotations.push(annotation);
     renderAnnotation(annotation);
   });
