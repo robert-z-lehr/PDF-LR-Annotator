@@ -2,6 +2,7 @@ import {categories} from '../categories.js';
 import {state} from '../state.js';
 import {renderAnnotation} from './renderAnnotation.js';
 import {rebuildCategoryIndex} from './rebuildCategoryIndex.js';
+import {updateLegendCounts} from './updateLegendCounts.js';
 import {updateStatus} from './updateStatus.js';
 import {toast} from './toast.js';
 export function createAnnotations(groups,text){
@@ -12,6 +13,7 @@ export function createAnnotations(groups,text){
     renderAnnotation(annotation);
   });
   rebuildCategoryIndex();
+  updateLegendCounts();
   updateStatus();
   toast(`${categories[state.selectedCategory].name}: highlight added`);
 }
