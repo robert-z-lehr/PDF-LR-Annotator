@@ -2,6 +2,7 @@ import {TextLayer} from '../pdfjs.js';
 import {state} from '../state.js';
 import {applyCurrentSelection} from './applyCurrentSelection.js';
 import {handleTwoClick} from './handleTwoClick.js';
+import {renderAnnotation} from './renderAnnotation.js';
 export async function renderDocument(token){
   const viewer=document.getElementById('viewer');
   const empty=document.getElementById('empty');
@@ -43,4 +44,6 @@ export async function renderDocument(token){
     textLayerDiv.addEventListener('mouseup',()=>{if(!document.getElementById('twoClickMode').checked)setTimeout(applyCurrentSelection,0);});
     textLayerDiv.addEventListener('click',event=>{if(document.getElementById('twoClickMode').checked)handleTwoClick(event,wrap);});
   }
+  if(token!==state.renderToken)return;
+  state.annotations.forEach(renderAnnotation);
 }
