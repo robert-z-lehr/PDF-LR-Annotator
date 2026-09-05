@@ -1,6 +1,6 @@
 # [PDF-LR-Annotator](https://robert-z-lehr.github.io/PDF-LR-Annotator/)
 
-Browser-based PDF literature-review annotator for applying a seven-color schema and navigating annotations quickly.
+Browser-based PDF literature-review annotator with color-coded highlighting, interactive navigation, and customizable annotation categories.
 
 ## Proof of concept features
 
