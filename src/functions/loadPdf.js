@@ -15,6 +15,7 @@ export async function loadPdf(file){
     state.pdf=await pdfjsLib.getDocument({data}).promise;
     if(token!==state.renderToken)return;
     state.fileName=file.name;
+    state.scale=state.defaultScale;
     state.annotations=[];
     state.navCurrentIdByCategory.clear();
     clearClickStart();
