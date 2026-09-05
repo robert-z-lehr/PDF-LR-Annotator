@@ -1,1 +1,1 @@
-export {PDFDocument,PDFName,PDFString} from 'https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm';
+export {PDFDocument,PDFName,PDFHexString} from 'https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm';
