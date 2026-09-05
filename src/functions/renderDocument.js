@@ -7,7 +7,7 @@ import {openCommentBox} from './openCommentBox.js';
 export async function renderDocument(token){
   const viewer=document.getElementById('viewer');
   const empty=document.getElementById('empty');
-  const reopenCommentId=state.openCommentId;
+  const reopenCommentIds=[...state.openCommentIds];
   viewer.innerHTML='';
   viewer.classList.remove('comments-open');
   empty.hidden=true;
@@ -49,8 +49,8 @@ export async function renderDocument(token){
   }
   if(token!==state.renderToken)return;
   state.annotations.forEach(renderAnnotation);
-  if(reopenCommentId){
-    const annotation=state.annotations.find(item=>item.id===reopenCommentId);
+  reopenCommentIds.forEach(id=>{
+    const annotation=state.annotations.find(item=>item.id===id);
     if(annotation)openCommentBox(annotation);
-  }
+  });
 }
