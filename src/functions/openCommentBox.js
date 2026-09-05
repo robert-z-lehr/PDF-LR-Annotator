@@ -41,5 +41,5 @@ export function openCommentBox(annotation){
   actions.append(deleteButton);
   box.append(header,textarea,actions);
   wrap.appendChild(box);
-  requestAnimationFrame(()=>textarea.focus());
+  requestAnimationFrame(()=>textarea.focus({preventScroll:true}));
 }
