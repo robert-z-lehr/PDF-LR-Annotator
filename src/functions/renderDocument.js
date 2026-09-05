@@ -3,10 +3,13 @@ import {state} from '../state.js';
 import {applyCurrentSelection} from './applyCurrentSelection.js';
 import {handleTwoClick} from './handleTwoClick.js';
 import {renderAnnotation} from './renderAnnotation.js';
+import {openCommentBox} from './openCommentBox.js';
 export async function renderDocument(token){
   const viewer=document.getElementById('viewer');
   const empty=document.getElementById('empty');
+  const reopenCommentId=state.openCommentId;
   viewer.innerHTML='';
+  viewer.classList.remove('comments-open');
   empty.hidden=true;
   viewer.hidden=false;
   for(let pageNumber=1;pageNumber<=state.pdf.numPages;pageNumber++){
@@ -46,4 +49,8 @@ export async function renderDocument(token){
   }
   if(token!==state.renderToken)return;
   state.annotations.forEach(renderAnnotation);
+  if(reopenCommentId){
+    const annotation=state.annotations.find(item=>item.id===reopenCommentId);
+    if(annotation)openCommentBox(annotation);
+  }
 }
