@@ -2,7 +2,7 @@ import {categories} from '../categories.js';
 import {state} from '../state.js';
 import {closeCommentBox} from './closeCommentBox.js';
 import {layoutCommentBoxes} from './layoutCommentBoxes.js';
-import {removeAnnotation} from './removeAnnotation.js';
+import {deleteComment} from './deleteComment.js';
 export function openCommentBox(annotation){
   const existing=document.querySelector(`.comment-box[data-id="${CSS.escape(annotation.id)}"]`);
   if(existing){
@@ -41,8 +41,8 @@ export function openCommentBox(annotation){
   const deleteButton=document.createElement('button');
   deleteButton.className='comment-delete';
   deleteButton.type='button';
-  deleteButton.textContent='Delete highlight';
-  deleteButton.addEventListener('click',()=>removeAnnotation(annotation.id));
+  deleteButton.textContent='Delete comment';
+  deleteButton.addEventListener('click',()=>deleteComment(annotation));
   actions.append(deleteButton);
   box.append(header,textarea,actions);
   wrap.appendChild(box);
