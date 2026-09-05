@@ -10,11 +10,11 @@ export function navigateHighlight(direction=1){
   index=direction>0?(index+1+ids.length)%ids.length:(index<=0?ids.length-1:index-1);
   const id=ids[index];
   state.navCurrentIdByCategory.set(category,id);
-  const el=document.querySelector(`.highlight[data-id="${CSS.escape(id)}"]`);
-  if(!el)return;
-  el.scrollIntoView({behavior:'smooth',block:'center',inline:'nearest'});
-  document.querySelectorAll('.highlight.flash').forEach(node=>node.classList.remove('flash'));
-  el.classList.add('flash');
-  setTimeout(()=>el.classList.remove('flash'),900);
+  document.querySelectorAll('.highlight.current').forEach(node=>node.classList.remove('current'));
+  const elements=document.querySelectorAll(`.highlight[data-id="${CSS.escape(id)}"]`);
+  const first=elements[0];
+  if(!first)return;
+  elements.forEach(node=>node.classList.add('current'));
+  first.scrollIntoView({behavior:'smooth',block:'center',inline:'nearest'});
   toast(`${categories[category].name}: ${index+1} of ${ids.length}`);
 }
