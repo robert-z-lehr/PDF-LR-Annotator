@@ -5,7 +5,9 @@ import {updateStatus} from './updateStatus.js';
 export function clearAnnotations(){
   state.annotations=[];
   state.navCurrentIdByCategory.clear();
-  document.querySelectorAll('.highlight').forEach(el=>el.remove());
+  state.openCommentIds.clear();
+  document.querySelectorAll('.highlight,.comment-box').forEach(el=>el.remove());
+  document.getElementById('viewer')?.classList.remove('comments-open');
   rebuildCategoryIndex();
   updateLegendCounts();
   updateStatus();
