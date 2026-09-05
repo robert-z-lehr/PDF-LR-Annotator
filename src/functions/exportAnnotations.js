@@ -1,6 +1,6 @@
 import {categories} from '../categories.js';
 import {state} from '../state.js';
-import {PDFDocument,PDFName,PDFString} from '../pdflib.js';
+import {PDFDocument,PDFName,PDFHexString} from '../pdflib.js';
 import {toast} from './toast.js';
 function hexToRgb01(hex){
   const value=hex.replace('#','');
@@ -43,10 +43,10 @@ export async function exportAnnotations(){
         C:[r,g,b],
         CA:0.32,
         F:4,
-        T:PDFString.of(category.name),
-        Subj:PDFString.of(category.name),
-        Contents:PDFString.of(annotation.comment?.trim()||category.name),
-        NM:PDFString.of(annotation.id)
+        T:PDFHexString.fromText(category.name),
+        Subj:PDFHexString.fromText(category.name),
+        Contents:PDFHexString.fromText(annotation.comment?.trim()||category.name),
+        NM:PDFHexString.fromText(annotation.id)
       });
       const ref=pdfDoc.context.register(dict);
       let annots=page.node.lookup(PDFName.of('Annots'));
