@@ -1,20 +1,25 @@
 import {categories} from '../categories.js';
 import {state} from '../state.js';
 import {closeCommentBox} from './closeCommentBox.js';
+import {layoutCommentBoxes} from './layoutCommentBoxes.js';
 import {removeAnnotation} from './removeAnnotation.js';
 export function openCommentBox(annotation){
-  closeCommentBox();
+  const existing=document.querySelector(`.comment-box[data-id="${CSS.escape(annotation.id)}"]`);
+  if(existing){
+    existing.querySelector('.comment-text')?.focus({preventScroll:true});
+    return;
+  }
   const wrap=document.querySelector(`.page-wrap[data-page="${annotation.page}"]`);
   const target=document.querySelector(`.highlight[data-id="${CSS.escape(annotation.id)}"]`);
   if(!wrap||!target)return;
-  state.openCommentId=annotation.id;
+  state.openCommentIds.add(annotation.id);
   document.getElementById('viewer')?.classList.add('comments-open');
   const box=document.createElement('aside');
   box.className='comment-box';
   box.dataset.id=annotation.id;
   const targetRect=target.getBoundingClientRect();
   const wrapRect=wrap.getBoundingClientRect();
-  box.style.top=`${Math.max(8,targetRect.top-wrapRect.top)}px`;
+  box.dataset.anchorY=String(Math.max(8,targetRect.top-wrapRect.top));
   const header=document.createElement('div');
   header.className='comment-header';
   const title=document.createElement('strong');
@@ -24,7 +29,7 @@ export function openCommentBox(annotation){
   close.type='button';
   close.textContent='×';
   close.setAttribute('aria-label','Close comment');
-  close.addEventListener('click',closeCommentBox);
+  close.addEventListener('click',()=>closeCommentBox(annotation.id));
   header.append(title,close);
   const textarea=document.createElement('textarea');
   textarea.className='comment-text';
@@ -41,5 +46,6 @@ export function openCommentBox(annotation){
   actions.append(deleteButton);
   box.append(header,textarea,actions);
   wrap.appendChild(box);
+  layoutCommentBoxes(annotation.page);
   requestAnimationFrame(()=>textarea.focus({preventScroll:true}));
 }
